@@ -50,15 +50,12 @@
                }
     
                 function Result(){
-                    console.log(fullNum);
+                
                        oper = fullNum.match(/[^0-9.]/g);
-                     console.log(oper);
                        operIndex = fullNum.indexOf(oper);
-                    console.log(operIndex);
                        firstNum = parseFloat(fullNum.substring(0,operIndex));
-                     console.log(firstNum);
                        secondNum = parseFloat(fullNum.substring(operIndex+1,fullNum.length));
-                    console.log(secondNum);
+                   
                     
                     
                     if(oper=="+"){result = firstNum+secondNum;}
