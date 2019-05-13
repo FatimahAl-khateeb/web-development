@@ -30,32 +30,38 @@
     <button type="button" id="2" onclick="Ui(2)">2</button>
     <button type="button" id="3" onclick="Ui(3)">3</button>
 
-
     <button type="button" id="0" onclick="Ui(0)">0</button>
     <button type="button" class="decimal" id="." onclick="Ui('.')">.</button>
+      
     <button type="button" class="all-clear" value="all-clear" onclick="Clear()">C</button>
+    <button type="button" class="log" id="log"  onclick="Log()">LOG</button>
+      
+        <select id="list" style= "display:none">
+      <option id="opt"></option>
+        </select>
 
+      
     <button type="button" class="equal-sign" id="=" onclick="Result()">=</button>
-
-
-  </div>
+    <div id="demo"></div>
+</div>
 </div>
      
         <script>
       
-                var fullNum="",firstNum,secondNum,operIndex,oper,result;
+                var fullNum="",firstNum,secondNum,operIndex,oper,result,myObj,logArray,obj,text,opt;
+                
     
                 function Ui (data) {
                         fullNum+=data;
                }
     
                 function Result(){
-                
+                    
                        oper = fullNum.match(/[^0-9.]/g);
                        operIndex = fullNum.indexOf(oper);
                        firstNum = parseFloat(fullNum.substring(0,operIndex));
                        secondNum = parseFloat(fullNum.substring(operIndex+1,fullNum.length));
-                   
+                    
                     
                     
                     if(oper=="+"){result = firstNum+secondNum;}
@@ -64,7 +70,23 @@
                     else if (oper=="/"){result = firstNum/secondNum;}
                     
                     document.getElementById("calculator-screen").innerHTML = result;  
-               }
+                    
+                    // Storing data:
+                    myObj = [{"firstNum" : firstNum, "secondNum":secondNum,"oper": oper ,"result": result}];
+                    logArray = JSON.stringify(myObj);
+                    localStorage.setItem("testJSON", logArray);
+                   
+
+              }
+            
+                function Log() {
+                    document.getElementById("list").style.display = "block";
+                    
+                      // Retrieving data:
+                    text = localStorage.getItem("testJSON");
+                    obj = JSON.parse(text);
+                    document.getElementById("opt").innerHTML = obj[0].firstNum +obj[0].oper + obj[0].secondNum +"="+ obj[0].result;
+                }
             
                 function Clear(){
                     fullNum=0;
